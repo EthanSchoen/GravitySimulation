@@ -2,12 +2,15 @@ import java.awt.Color;
 import java.awt.Point;
 
 public class Matter {
-	
+
+    private final int SPEED_CONST = 25;
 	private Point center;
 	private int radius;
 	private Color color;
 	private int velocityX;
+	private float vX;
 	private int velocityY;
+	private float vY;
 	private final int C = 1000;
 	
 	public Matter(Point loc){
@@ -68,7 +71,11 @@ public class Matter {
 	
 	public void setVelocityX(int v){
 		if(v < C){
-			velocityX = v;
+            vX += (v*SPEED_CONST)/radius;
+            if (v != 0 && vX == 0) {
+                vX = (v > 0) ? 1 : -1;
+            }
+			velocityX = (int)vX;
 		}else{
 			velocityX = C;
 		}
@@ -76,7 +83,11 @@ public class Matter {
 	
 	public void setVelocityY(int v){
 		if(v < C){
-			velocityY = v;
+			vY += (v*SPEED_CONST)/radius;
+            if (v != 0 && vY == 0) {
+                vY = (v > 0) ? 1 : -1;
+            }
+			velocityY = (int)vY;
 		}else{
 			velocityY = C;
 		}
